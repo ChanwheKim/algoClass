@@ -51,29 +51,64 @@ What's the time complexity?
  */
 
 function Stack(capacity) {
-  // implement me...
-}
+  this.capacity = capacity;
+  this.storage = {};
+  this.count = 0;
+};
 
 Stack.prototype.push = function(value) {
-  // implement me...
+  if(this.count === this.capacity) {
+    return 'Max capacity already reached. Remove element before adding a new one.'
+  } else if(value) {
+    this.storage[this.count] = value;
+    return ++this.count;
+  }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.pop = function() {
-  // implement me...
+  if(this.count > 0) {
+    let lastElement = this.storage[--this.count];
+    delete this.storage[this.count];
+    return lastElement;
+  } else {
+    return 'No element inside the stack. Add element before poping.';
+  }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.peek = function() {
-  // implement me...
+  if(this.count > 0) {
+    return this.storage[this.count - 1];
+  }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.count = function() {
-  // implement me...
+  return this.count;
 };
-// Time complexity:
+// Time complexity: O(1)
 
+Stack.prototype.contains = function(value) {
+  if(this.count > 0) {
+    for(let key in this.storage) {
+      if(this.storage[key] === value) return true;
+    }
+    return false;
+  }
+};
+// Time complexity: O(1)
+
+Stack.prototype.until = function(value) {
+  let counter = 0;
+  let keys = Object.keys(this.storage);
+  for(let i = keys.length - 1; i >= 0 ; i--) {
+    counter++;
+    if(this.storage[keys[i]] === value) return counter;
+  }
+  return 'Not found the required value.';
+};
+// Time complexity: O(1)
 
 /*
 *** Exercises:
