@@ -51,29 +51,61 @@ What's the time complexity?
  */
 
 function Queue(capacity) {
-  // implement me...
-}
+  this.storage = {};
+  this.capacity = capacity;
+  this.head = 0;
+  this.tail = 0;
+};
 
 Queue.prototype.enqueue = function(value) {
-  // implement me...
+  if(this.count() === this.capacity) {
+    return "Max capacity already reached!";
+  } else if(value !== undefined) {
+    this.storage[this.tail++] = value;
+    return this.count();
+  }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Queue.prototype.dequeue = function() {
-  // implement me...
+  if(this.count() > 0) {
+    let deleted = this.storage[this.head];
+    delete this.storage[this.head++];
+    return deleted;
+  }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Queue.prototype.peek = function() {
-  // implement me...
+  if(this.count() > 0) {
+    return this.storage[this.head];
+  }
 };
 
 Queue.prototype.count = function() {
-  // implement me...
+  return this.tail - this.head;
 };
-// Time complexity:
+// Time complexity: O(1)
 
+Queue.prototype.contains = function(value) {
+  for(let i = this.head; i < this.tail; i++) {
+    if(this.storage[i] === value) {
+      return true;
+    }
+  }
+  return false;
+};
+// Time complexity: O(n)
 
+Queue.prototype.until = function(value) {
+  let counter = 0;
+  for(let i = this.head; i < this.tail; i++) {
+    counter++;
+    if(this.storage[i] === value) return counter;
+  }
+  return 'Required value is not found.';
+};
+// Time complexity: O(n)
 
 /*
 *** Exercises:
